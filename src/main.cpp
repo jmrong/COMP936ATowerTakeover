@@ -14,7 +14,7 @@
 // Fleft                motor         3               
 // Bright               motor         2               
 // Bleft                motor         1               
-// Mcage                motor         6               
+// Mcage                motor         7               
 // Lleft                motor         9               
 // Lright               motor         10              
 // Controller1          controller                    
@@ -28,15 +28,35 @@ using namespace vex;
 
 competition Competition;
 
+bool auton = false;
+
 void pre_auton(void) {
   
   vexcodeInit();
 
-  Gyro.startCalibration();
+  Brain.Screen.drawRectangle(0, 0, 240, 272, red);
+
+  while (!Competition.isEnabled()) {
+
+    if (Brain.Screen.xPosition() <= 240 && auton) {
+
+      auton = false;
+      Brain.Screen.clearScreen();
+      Brain.Screen.drawRectangle(0, 0, 240, 272, red);
+
+    } else if (Brain.Screen.xPosition() >= 241 && !auton) {
+
+      auton = true;
+      Brain.Screen.clearScreen();
+      Brain.Screen.drawRectangle(241, 0, 240, 272, blue);
+
+    }
+
+  }
 
 }
 
-void moveY(int degrees, bool blocking=true, int rpm=80) {
+void moveY(int degrees, bool blocking=true, int rpm=70) {
 
   Fleft.setVelocity(rpm, vex::velocityUnits::rpm);
   Fright.setVelocity(rpm, vex::velocityUnits::rpm);
@@ -78,7 +98,7 @@ void left(int degrees, bool blocking=true, int rpm=200) {
 
 } */
 
-void moveX(int degrees, bool blocking=true, int rpm=80) {
+void moveX(int degrees, bool blocking=true, int rpm=70) {
 
   Fleft.setVelocity(rpm, vex::velocityUnits::rpm);
   Fright.setVelocity(rpm, vex::velocityUnits::rpm);
@@ -92,7 +112,7 @@ void moveX(int degrees, bool blocking=true, int rpm=80) {
 
 }
 
-void turn(int degrees, bool blocking=true, int rpm=80) {
+void turn(int degrees, bool blocking=true, int rpm=70) {
 
   Fleft.setVelocity(rpm, vex::velocityUnits::rpm);
   Fright.setVelocity(rpm, vex::velocityUnits::rpm);
@@ -182,13 +202,14 @@ void openCage() {
 
 void autonomous(void) {
   
+  if (auton) {
   closeCage();
   moveLift(50);
   moveY(250);
   openCage();
   moveY(-400);
   moveX(400);
-  moveY(-285);
+  moveY(-265);
   turn(370);
   moveLift(90);
   openCage();
@@ -196,14 +217,51 @@ void autonomous(void) {
   closeCage();
   wait(200, msec);
   moveLift(90);
-  moveY(-640, true, 50);
+  moveY(-290);
   turn(-360);
-  moveY(550, true, 50);
-  moveLift(-90);
+  wait(200, msec);
+  moveY(255);
+  wait(200, msec);
+  moveX(-400);
+  wait(200, msec);
+  moveY(400);
+  moveLift(-80);
   openCage();
-  moveY(-300, true, 50);
-  //comment
-  
+  wait(200, msec);
+  moveLift(80);
+  moveY(-200);
+  } else {
+  closeCage();
+  wait(100, msec);
+  moveLift(50);
+  moveX(-50);
+  moveY(250);
+  openCage();
+  wait(100, msec);
+  moveY(-380);
+  moveX(-400);
+  moveY(-295);
+  turn(-370);
+  moveLift(90);
+  openCage();
+  moveY(290, true, 50);
+  closeCage();
+  wait(200, msec);
+  moveLift(90);
+  moveY(-290);
+  turn(360);
+  wait(200, msec);
+  moveY(255);
+  wait(200, msec);
+  moveX(350);
+  wait(200, msec);
+  moveY(470);
+  moveLift(-80);
+  openCage();
+  wait(200, msec);
+  moveLift(80);
+  moveY(-200);
+  }
 
 }
 
