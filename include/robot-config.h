@@ -13,6 +13,10 @@ extern motor Lright;
 extern controller Controller1;
 extern motor Ltop;
 extern gyro Gyro;
+extern controller Controller2;
+extern encoder Lencoder;
+extern encoder Rencoder;
+extern encoder Hencoder;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.

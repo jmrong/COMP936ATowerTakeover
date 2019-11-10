@@ -17,7 +17,11 @@ motor Lleft = motor(PORT9, ratio36_1, false);
 motor Lright = motor(PORT10, ratio36_1, true);
 controller Controller1 = controller(primary);
 motor Ltop = motor(PORT8, ratio36_1, true);
-gyro Gyro = gyro(Brain.ThreeWirePort.A);
+gyro Gyro = gyro(Brain.ThreeWirePort.C);
+controller Controller2 = controller(partner);
+encoder Lencoder = encoder(Brain.ThreeWirePort.E);
+encoder Rencoder = encoder(Brain.ThreeWirePort.G);
+encoder Hencoder = encoder(Brain.ThreeWirePort.A);
 
 // VEXcode generated functions
 
