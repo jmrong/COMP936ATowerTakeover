@@ -282,48 +282,51 @@ void autonomous(void) {
   
   if (!auton) {
     // RED
+    moveLift(40);
     openCage();
-    moveY(400);
+    moveY(200);
     closeCage();
-    wait(200, msec);
     turnRight(90, 80);
     moveY(100);
     openCage();
-    moveY(-100);
-    turnLeft(90, 80);
-    moveY(400);
-    moveLift(20);
+    moveY(-80);
+    turnLeft(88, 70);
+    moveLift(-10);
+    moveY(510, true, 40);
     closeCage();
-    moveY(-1000, true, 40);
-    moveY(80);
-    turnLeft(90);
-    moveY(500);
-    moveLift(-20);
+    moveLift(30);
+    moveY(-510, true, 40);
+    turnLeft(102);
+    moveLift(35);
+    moveY(400, true, 40);
+    moveLift(32);
+    moveY(240, true, 40);
     openCage();
-    moveLift(20);
-    moveY(-300);
-    closeCage();
+    wait(200, msec);
+    moveY(-100);
   } else {
     // BLUE
     moveLift(40);
     openCage();
     moveY(200);
     closeCage();
-    turnLeft(90);
+    turnLeft(90, 80);
     moveY(100);
     openCage();
     moveY(-80);
-    turnRight(88);
+    turnRight(88, 70);
+    moveLift(-10);
     moveY(510, true, 40);
     closeCage();
     moveLift(30);
     moveY(-510, true, 40);
-    turnRight(102);
-    moveLift(30);
+    turnRight(104);
+    moveLift(35);
     moveY(400, true, 40);
     moveLift(25);
     moveY(235, true, 40);
     openCage();
+    wait(200, msec);
     moveY(-100);
 
     /*
@@ -438,24 +441,19 @@ void usercontrol(void) {
       
     } else if (Controller1.ButtonRight.pressing()) {
 
-      Fleft.spin(vex::directionType::rev, 30, vex::velocityUnits::rpm);
-      Fright.spin(vex::directionType::rev, 30, vex::velocityUnits::rpm);
-      Bleft.spin(vex::directionType::fwd, 30, vex::velocityUnits::rpm);
-      Bright.spin(vex::directionType::fwd, 30, vex::velocityUnits::rpm);
+      Fleft.spin(vex::directionType::fwd, 30, vex::velocityUnits::rpm);
+      Fright.spin(vex::directionType::fwd, 30, vex::velocityUnits::rpm);
+      Bleft.spin(vex::directionType::rev, 30, vex::velocityUnits::rpm);
+      Bright.spin(vex::directionType::rev, 30, vex::velocityUnits::rpm);
 
     } else {
 
-      Fleft.stop();
-      Fright.stop();
-      Bleft.stop();
-      Bright.stop();
-
-    }
-
-    Fleft.spin(vex::directionType::fwd, Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value(), vex::velocityUnits::pct);
+      Fleft.spin(vex::directionType::fwd, Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value(), vex::velocityUnits::pct);
     Bleft.spin(vex::directionType::fwd, Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value(), vex::velocityUnits::pct);
     Fright.spin(vex::directionType::fwd, -Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value(), vex::velocityUnits::pct);
     Bright.spin(vex::directionType::fwd, -Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value(), vex::velocityUnits::pct);
+
+    }
 
     int liftSpeed = 100;
     Lleft.setVelocity(100, vex::velocityUnits::rpm);
