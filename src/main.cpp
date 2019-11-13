@@ -37,10 +37,11 @@ bool auton = false;
 void pre_auton(void) {
   
   vexcodeInit();
-
+  Mcage.resetRotation();
   Gyro.startCalibration();
   
   Brain.Screen.drawRectangle(0, 0, 240, 272, red);
+
 
   while (!Competition.isEnabled()) {
 
@@ -273,8 +274,8 @@ void closeCage() {
 
 void openCage() {
 
-  Mcage.spin(vex::directionType::rev, 100, vex::velocityUnits::rpm);
-  wait(200, msec);
+  Mcage.rotateTo(0,deg,100,rpm,false);
+  Mcage.stop(hold);
 
 }
 
