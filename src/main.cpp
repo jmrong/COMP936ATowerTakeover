@@ -27,7 +27,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
-
+#include <cmath>
 using namespace vex;
 
 competition Competition;
@@ -480,9 +480,14 @@ void usercontrol(void) {
     if (Controller1.ButtonL1.pressing()) {
       Mcage.spin(vex::directionType::fwd, 50, vex::velocityUnits::rpm);
     } else if (Controller1.ButtonL2.pressing()) {
-      Mcage.spin(vex::directionType::rev, 100, vex::velocityUnits::rpm);
+      if(fabs(Mcage.rotation(deg))>=5){
+        Mcage.rotateTo(0,deg,100,rpm);
+      }
+      else{
+        Mcage.stop(hold);
+      }
     } else {
-      Mcage.stop(vex::brakeType::hold);
+      Mcage.stop(coast);
     }
 
     if (counter == 100) {
